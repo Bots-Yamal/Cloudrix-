@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b14">
+<title>Cloudrix — Free Web Hosting</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg: #080b14;
+  --panel: #101625;
+  --panel2: #151e30;
+  --blue: #5795ff;
+  --cyan: #48d9ed;
+  --text: #f4f7ff;
+  --muted: #8996ad;
+  --border: rgba(255,255,255,.08);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, sans-serif;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button { font-family: inherit; cursor: pointer; }
+
+.background-glow {
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  background: #286bff;
+  filter: blur(180px);
+  opacity: .13;
+  top: -230px;
+  left: 30%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+header {
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8%;
+  border-bottom: 1px solid var(--border);
+  background: rgba(8,11,20,.85);
+  backdrop-filter: blur(20px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 23px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.logo span { color: var(--blue); }
+
+nav {
+  display: flex;
+  gap: 30px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+nav a:hover { color: white; }
+
+.header-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn {
+  border: 1px solid var(--border);
+  padding: 11px 19px;
+  border-radius: 9px;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  background: transparent;
+  transition: .25s;
+}
+
+.btn:hover { transform: translateY(-2px); }
+
+.btn-primary {
+  background: linear-gradient(120deg,#3979f6,#42b7ed);
+  border: none;
+  box-shadow: 0 5px 25px #327bff30;
+}
+
+.hero {
+  min-height: 690px;
+  padding: 130px 20px 100px;
+  text-align: center;
+  position: relative;
+}
+
+.tag {
+  display: inline-flex;
+  padding: 9px 15px;
+  background: #142442;
+  color: #78adff;
+  border: 1px solid #294779;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 28px;
+}
+
+.hero h1 {
+  font-size: clamp(42px,7vw,76px);
+  font-weight: 900;
+  letter-spacing: -4px;
+  line-height: 1.08;
+  max-width: 900px;
+  margin: auto;
+}
+
+.gradient {
+  background: linear-gradient(100deg,#62a1ff,#5ce2ef);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  max-width: 590px;
+  margin: 25px auto;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.preview {
+  max-width: 790px;
+  margin: 80px auto 0;
+  background: #101827;
+  border: 1px solid #263b5c;
+  border-radius: 15px;
+  padding: 18px;
+  text-align: left;
+  box-shadow: 0 20px 90px #246aff18;
+  transform: perspective(1000px) rotateX(3deg);
+}
+
+.preview-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 17px;
+  border-bottom: 1px solid var(--border);
+}
+
+.dots { display: flex; gap: 6px; }
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fa7373;
+}
+
+.dot:nth-child(2) { background: #f6c65d; }
+.dot:nth-child(3) { background: #54d68c; }
+
+.preview-content {
+  padding: 30px 15px;
+}
+
+.preview-content h3 { font-size: 22px; }
+
+.preview-content p {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 9px;
+}
+
+.preview-stats {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.stat {
+  background: #18253a;
+  padding: 18px;
+  border-radius: 9px;
+}
+
+.stat strong {
+  display: block;
+  font-size: 22px;
+  color: var(--blue);
+}
+
+.stat span {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+section {
+  padding: 95px 8%;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-title h2 {
+  font-size: clamp(29px,4vw,43px);
+  font-weight: 900;
+  letter-spacing: -1.5px;
+}
+
+.section-title p {
+  color: var(--muted);
+  margin-top: 14px;
+  font-size: 14px;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 17px;
+  max-width: 1150px;
+  margin: auto;
+}
+
+.feature {
+  background: linear-gradient(145deg,#111b2c,#0d1320);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 28px;
+  transition: .3s;
+}
+
+.feature:hover {
+  transform: translateY(-6px);
+  border-color: #3979f655;
+}
+
+.feature-icon {
+  width: 43px;
+  height: 43px;
+  background: #1a3154;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.feature h3 { font-size: 16px; }
+
+.feature p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-top: 12px;
+}
+
+.steps {
+  max-width: 900px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 18px;
+}
+
+.step {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 25px;
+}
+
+.step-number {
+  color: var(--blue);
+  font-weight: 900;
+  font-size: 25px;
+  margin-bottom: 15px;
+}
+
+.step p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+  margin-top: 10px;
+}
+
+.cta {
+  max-width: 950px;
+  margin: auto;
+  padding: 65px 25px;
+  text-align: center;
+  background: linear-gradient(120deg,#142b50,#102038);
+  border: 1px solid #31517c;
+  border-radius: 18px;
+}
+
+.cta h2 {
+  font-size: 35px;
+  letter-spacing: -1px;
+}
+
+.cta p {
+  color: #aabbd3;
+  font-size: 13px;
+  margin: 17px auto 25px;
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 35px 8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.mobile-menu { display: none; }
+
+@media(max-width:800px) {
+  header { padding: 0 5%; }
+  nav { display: none; }
+  .header-buttons .btn:first-child { display: none; }
+  .hero { padding-top: 100px; }
+  .hero h1 { letter-spacing: -2px; }
+  section { padding: 75px 5%; }
+  .features { grid-template-columns: repeat(2,1fr); }
+  .steps { grid-template-columns: 1fr; }
+}
+
+@media(max-width:500px) {
+  .features { grid-template-columns: 1fr; }
+  .preview-stats { grid-template-columns: 1fr; }
+  .hero { min-height: auto; padding-bottom: 75px; }
+  .preview { margin-top: 55px; }
+  .cta h2 { font-size: 27px; }
+  footer { flex-direction: column; gap: 13px; text-align: center; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: .7s;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<div class="background-glow"></div>
+
+<header>
+  <a href="#" class="logo">CLOUD<span>RIX</span></a>
+
+  <nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#funciones">Funciones</a>
+    <a href="#como">Cómo funciona</a>
+    <a href="#nosotros">Nosotros</a>
+  </nav>
+
+  <div class="header-buttons">
+    <button class="btn" onclick="notify()">Iniciar sesión</button>
+    <button class="btn btn-primary" onclick="notify()">Comenzar gratis</button>
+  </div>
+</header>
+
+<main>
+
+<div class="hero" id="inicio">
+
+  <div class="tag">☁️ FREE WEB HOSTING PLATFORM</div>
+
+  <h1>
+    Publicá tu web.<br>
+    <span class="gradient">Sin complicaciones.</span>
+  </h1>
+
+  <p>
+    Aloja tus proyectos web de manera sencilla.
+    Conectá GitHub, publicá tus sitios y administrá
+    todo desde un solo lugar.
+  </p>
+
+  <div class="hero-actions">
+    <button class="btn btn-primary" onclick="notify()">
+      Empezar gratis →
+    </button>
+    <a href="#funciones" class="btn">Explorar funciones</a>
+  </div>
+
+  <div class="preview">
+    <div class="preview-top">
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <span style="font-size:10px;color:#7c91ad">CLOUDRIX DASHBOARD</span>
+    </div>
+
+    <div class="preview-content">
+      <h3>Bienvenido a Cloudrix 👋</h3>
+      <p>Tu espacio de desarrollo y publicación web.</p>
+
+      <div class="preview-stats">
+        <div class="stat">
+          <strong>∞</strong>
+          <span>Creatividad</span>
+        </div>
+        <div class="stat">
+          <strong>Git</strong>
+          <span>Integración</span>
+        </div>
+        <div class="stat">
+          <strong>Free</strong>
+          <span>Modelo gratuito previsto</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="funciones">
+  <div class="section-title reveal">
+    <h2>Todo lo que necesitás.</h2>
+    <p>Herramientas para publicar y administrar tus proyectos.</p>
+  </div>
+
+  <div class="features">
+
+    <div class="feature reveal">
+      <div class="feature-icon">📦</div>
+      <h3>Subida de archivos</h3>
+      <p>Publicá tus proyectos mediante archivos ZIP con HTML, CSS y JavaScript.</p>
+    </div>
+
+    <div class="feature reveal">
+      <div class="feature-icon">🐙</div>
+      <h3>Conexión con GitHub</h3>
+      <p>Conectá tus repositorios para facilitar las publicaciones y actualizaciones.</p>
+    </div>
+
+    <div class="feature reveal">
+      <div class="feature-icon">🌐</div>
+      <h3>Subdominios</h3>
+      <p>Tu propio espacio web bajo el dominio de Cloudrix.</p>
+    </div>
+
+    <div class="feature reveal">
+      <div class="feature-icon">🔒</div>
+      <h3>Conexiones seguras</h3>
+      <p>HTTPS para que tus páginas puedan navegarse de forma segura.</p>
+    </div>
+
+    <div class="feature reveal">
+      <div class="feature-icon">📊</div>
+      <h3>Estadísticas</h3>
+      <p>Consultá información de tus proyectos y sus publicaciones.</p>
+    </div>
+
+    <div class="feature reveal">
+      <div class="feature-icon">⚡</div>
+      <h3>Publicación sencilla</h3>
+      <p>Administrá tus sitios desde una interfaz moderna y organizada.</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="como">
+  <div class="section-title reveal">
+    <h2>Publicar es sencillo.</h2>
+    <p>Una experiencia pensada para desarrolladores.</p>
+  </div>
+
+  <div class="steps">
+
+    <div class="step reveal">
+      <div class="step-number">01</div>
+      <h3>Creá tu cuenta</h3>
+      <p>Accedé a tu espacio personal dentro de Cloudrix.</p>
+    </div>
+
+    <div class="step reveal">
+      <div class="step-number">02</div>
+      <h3>Subí tu proyecto</h3>
+      <p>Elegí un ZIP o conectá tu repositorio de GitHub.</p>
+    </div>
+
+    <div class="step reveal">
+      <div class="step-number">03</div>
+      <h3>Publicá tu web</h3>
+      <p>Obtené una dirección pública para compartir tu página.</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="nosotros">
+  <div class="cta reveal">
+    <h2>Tu próximo proyecto comienza aquí.</h2>
+    <p>Cloudrix: una nueva forma de administrar tus proyectos web.</p>
+    <button class="btn btn-primary" onclick="notify()">
+      Próximamente →
+    </button>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <a href="#" class="logo">CLOUD<span>RIX</span></a>
+  <span>© 2026 Cloudrix. Todos los derechos reservados.</span>
+  <span>Free Web Hosting Platform</span>
+</footer>
+
+<script>
+function notify() {
+  alert("Cloudrix todavía está en desarrollo. ¡Próximamente!");
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    }
+  });
+}, {threshold: .12});
+
+document.querySelectorAll(".reveal").forEach(el => {
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
